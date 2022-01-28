@@ -1,0 +1,21 @@
+:root {
+  --blue: rgb(0, 132, 255);
+  --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--blue);
+  font-family: var(--font);
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#signInBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
