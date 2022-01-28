@@ -1,6 +1,13 @@
- :root {
-  --blue: rgb(0, 132, 255);
-  --font-colour: #ffffff;
+:root {
+	--green: #32d29b;
+	--black: #0e1016;
+	--light-black: #252936;
+	--dark-grey: #475366;
+	--grey: #76767c;
+	--light-grey: #afaeae;
+	--white: #ffffff;
+	--error: #d64242;
+	--bgcolor: #f6f7f9;
   --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
 }
@@ -17,7 +24,8 @@
 }
 
 #loaderMessage{
-  color: var(--font-colour);
+  color: var(--green);
   font-size: 1.5em;
   text-align: center;
+  font-weight: 500;
 }
