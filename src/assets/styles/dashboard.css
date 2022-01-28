@@ -1,6 +1,7 @@
 :root {
   --blue: rgb(0, 132, 255);
-  --font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
 }
 
 body {
