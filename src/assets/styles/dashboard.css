@@ -1,13 +1,13 @@
 :root {
-	--green: #32d29b;
-	--black: #0e1016;
-	--light-black: #252936;
-	--dark-grey: #475366;
-	--grey: #76767c;
-	--light-grey: #afaeae;
-	--white: #ffffff;
-	--error: #d64242;
-	--bgcolor: #f6f7f9;
+  --green: #32d29b;
+  --black: #0e1016;
+  --light-black: #252936;
+  --dark-grey: #475366;
+  --grey: #76767c;
+  --light-grey: #afaeae;
+  --white: #ffffff;
+  --error: #d64242;
+  --bgcolor: #f6f7f9;
   --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
 }
@@ -33,7 +33,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
-button {
+/* button {
   background-color: transparent;
   border: 1px solid #ffffff;
   border-radius: 5px;
@@ -47,7 +47,7 @@ button:hover {
   color: var(--blue);
   border: 1px solid var(--blue);
   cursor: pointer;
-}
+} */
 
 #stepCount {
   font-weight: 800;
@@ -82,4 +82,56 @@ button:hover {
 #podName {
   color: #ffffff;
   font-size: 15px;
+}
+
+table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+td {
+  padding: 20px;
+}
+
+#options .option {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: var(--green) 0px 2px 8px 0px;
+  transition: 0.3s;
+  border-radius: 5px;
+  color: var(--green);
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+  justify-content: center;
+  min-width: max-content;
+}
+
+#options .option:hover {
+  cursor: pointer;
+  box-shadow: var(--green) 0px 3px 8px 5px;
+}
+
+#options .option img {
+  height: 40px;
+  width: 40px;
+  padding: 10px;
+}
+
+#options .option p {
+  padding: 10px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

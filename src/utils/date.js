@@ -3,13 +3,11 @@ const calculateDates = () => {
   currentDate.setUTCHours(0, 0, 0, 0);
   const endTime = currentDate - 19800000 + 86400000;
 
-  const dayNumber = new Date().getDay();
-
-  const startTime = endTime - 86400000 * dayNumber;
+  const startTime = endTime - 86400000 * 7;
 
   var dates = [];
 
-  for (var i = dayNumber - 1; i >= 0; i--) {
+  for (var i = 6; i >= 0; i--) {
     var pastDate = new Date(currentDate);
     pastDate.setDate(pastDate.getDate() - i);
     var splitDate = String(pastDate).split(" ");

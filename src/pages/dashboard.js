@@ -32,13 +32,25 @@ import {
 import { render } from "@testing-library/react";
 import Loader from "../components/loader";
 import { calculateDates } from "../utils/date";
+import {Header} from "../layouts/header";
+
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import { createGraphData } from "../utils/graphData";
 
 const Dashboard = (props) => {
-  // useEffect(()=>{
-  //   if(!sessionStorage.getItem("googleUserDetails")){
-  //   window.location.href = "/home";
-  //   }
-  // })
+  useEffect(()=>{
+    if(!sessionStorage.getItem("googleUserDetails")){
+    window.location.href = "/";
+    }
+  })
 
   const [loading, setLoading] = useState(true);
 
@@ -49,8 +61,13 @@ const Dashboard = (props) => {
   useEffect(() => {
     const { startTime, endTime, dates } = calculateDates();
 
-    const bearerToken =
-      "ya29.A0ARrdaM-0v7OozjocQLJPA7L51kblkSSL9eVapLC_jFsqhhAfvQtpZ1PNAZyYJkVO9I7ckACj0wCp5XChyZ_kePhsHvTFVeIjC1RXxnlvlb1yvKEUFMNGcsw5RATE39mVgfQ0wm1La7uZAc9dID-L899aGoGQvQ";
+    const bearerToken = JSON.parse(
+      sessionStorage.getItem("googleUserDetails")
+    ).accessToken;
+    console.log(
+      "🚀 ~ file: dashboard.js ~ line 65 ~ useEffect ~ bearerToken",
+      bearerToken
+    );
 
     async function fetchData() {
       await getStepCount(bearerToken, startTime, endTime, 86400000);
@@ -67,7 +84,88 @@ const Dashboard = (props) => {
     fetchData();
   }, []);
 
-  return loading ? <Loader details={details}></Loader> : <p>Done</p>;
+  return loading ? (
+    <Loader details={details}></Loader>
+  ) : (
+    <>
+      <Header></Header>
+      <div id="options">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/steps.png")} alt="" />
+                  <p>Steps</p>
+                </div>
+              </td>
+
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/distance.png")} alt="" />
+                  <p>Distance</p>
+                </div>
+              </td>
+
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/speed.png")} alt="" />
+                  <p>Speed</p>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/active-minutes.png")} alt="" />
+                  <p>Active Minutes</p>
+                </div>
+              </td>
+
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/calories.png")} alt="" />
+                  <p>Calories Expended</p>
+                </div>
+              </td>
+
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/heart-minutes.png")} alt="" />
+                  <p>Heart Minutes</p>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td>
+                <div className="option noselect" id="steps">
+                  <img src={require("../assets/sleep.png")} alt="" />
+                  <p>Sleep Segment</p>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
+  // return <ResponsiveContainer width="40%" aspect={3}>
+  //   <BarChart
+  //     width={500}
+  //     height={300}
+  //     data={createGraphData('steps')}
+  //     barSize={30}
+  //   >
+  //     <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50}} />
+  //     <YAxis />
+  //     <Tooltip />
+  //     <Bar dataKey="data" name="Steps" fill="#32d29b"/>
+  //   </BarChart>
+  // </ResponsiveContainer>;
 };
 
 export default Dashboard;

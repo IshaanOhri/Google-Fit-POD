@@ -1,0 +1,83 @@
+:root {
+  --green: #32d29b;
+  --black: #0e1016;
+  --light-black: #252936;
+  --dark-grey: #475366;
+  --grey: #76767c;
+  --light-grey: #afaeae;
+  --white: #ffffff;
+  --error: #d64242;
+  --bgcolor: #f6f7f9;
+  --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+#logo,
+#profile {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--green);
+  font-weight: 500;
+  font-size: 1.2em;
+  border-bottom: 2px var(--green) solid;
+}
+
+.loginHeader {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--green);
+  font-weight: 500;
+  font-size: 1.2em;
+  border-bottom: 2px var(--green) solid;
+}
+
+#home,
+#buttons {
+  display: flex;
+  align-items: center;
+}
+
+#home,
+#profile {
+  cursor: pointer;
+}
+
+#buttons {
+  position: absolute;
+  right: 20px;
+}
+
+#buttons button {
+  border: none;
+  background-color: var(--black);
+  color: var(--green);
+  font-weight: 500;
+  font-size: 1em;
+  margin: 0px 20px;
+}
+
+#buttons button:hover {
+  color: var(--white);
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
