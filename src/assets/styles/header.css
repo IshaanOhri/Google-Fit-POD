@@ -1,17 +1,3 @@
-:root {
-  --green: #32d29b;
-  --black: #0e1016;
-  --light-black: #252936;
-  --dark-grey: #475366;
-  --grey: #76767c;
-  --light-grey: #afaeae;
-  --white: #ffffff;
-  --error: #d64242;
-  --bgcolor: #f6f7f9;
-  --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-}
-
 #logo,
 #profile {
   width: 30px;
@@ -56,19 +42,13 @@
   right: 20px;
 }
 
-#buttons button {
-  border: none;
-  background-color: var(--black);
+#buttons p {
   color: var(--green);
-  font-weight: 500;
-  font-size: 1em;
   margin: 0px 20px;
 }
 
-#buttons button:hover {
+#buttons p:hover {
   color: var(--white);
-  font-weight: 500;
-  font-size: 1em;
   cursor: pointer;
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Hearts } from "react-loader-spinner";
+import { BallTriangle } from "react-loader-spinner";
 import '../assets/styles/loader.css'
 
 const Loader = (pops) => {
@@ -7,8 +7,8 @@ const Loader = (pops) => {
 
   return (
     <div className="loader">
-      <Hearts color="#ff4d4d" height={200} width={200} />
-      <p id="loaderMessage" className="shimmer">{message}</p>
+      <BallTriangle color="#32d29b" height={200} width={200} />
+      <p id="loaderMessage">{message}</p>
     </div>
   );
 };

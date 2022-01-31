@@ -1,87 +1,6 @@
-:root {
-  --green: #32d29b;
-  --black: #0e1016;
-  --light-black: #252936;
-  --dark-grey: #475366;
-  --grey: #76767c;
-  --light-grey: #afaeae;
-  --white: #ffffff;
-  --error: #d64242;
-  --bgcolor: #f6f7f9;
-  --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
-}
-
 body {
   background-color: var(--black);
   font-family: var(--font);
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#stepsBlock {
-  text-align: center;
-  font-size: 40px;
-  color: #ffffff;
-  font-weight: 500;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* button {
-  background-color: transparent;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 15px;
-  color: #ffffff;
-}
-
-button:hover {
-  background-color: #ffffff;
-  color: var(--blue);
-  border: 1px solid var(--blue);
-  cursor: pointer;
-} */
-
-#stepCount {
-  font-weight: 800;
-  font-size: 70px;
-}
-
-#signOutBtn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-}
-
-#podBtns {
-  margin-top: 15px;
-  margin-left: 10px;
-}
-
-#solidLoginBtn,
-#solidLogoutBtn,
-#writeToPODBtn,
-#refreshStepCount {
-  margin: 5px;
-}
-
-#profilePic {
-  border-radius: 50%;
-}
-
-#name,
-#email,
-#webID,
-#podName {
-  color: #ffffff;
-  font-size: 15px;
 }
 
 table {
@@ -102,10 +21,9 @@ td {
   box-sizing: border-box;
   box-shadow: var(--green) 0px 2px 8px 0px;
   transition: 0.3s;
-  border-radius: 5px;
+  border-radius: 10px;
   color: var(--green);
   font-size: 1.2em;
-  font-weight: 500;
   text-align: center;
   justify-content: center;
   min-width: max-content;

@@ -10,33 +10,37 @@ const signOutGoogle = () => {
 const Header = (pops) => {
   return (
     <div className="header noselect">
-      <div id="home">
+      <div
+        id="home"
+        onClick={() => {
+          window.location.href = "/dashboard";
+        }}
+      >
         <p>HealthKeeper</p>
         <img id="logo" src={require("../assets/logo.png")} alt="Logo"></img>
       </div>
       <div id="buttons">
-        <button id="solidSignInBtn">Sign In POD</button>
-        <button id="solidSignOutBtn">Sign Out POD</button>
-        <button
+        <p id="solidSignInBtn">Sign In POD</p>
+        <p id="solidSignOutBtn">Sign Out POD</p>
+        <p
           id="googleSignOutBtn"
           onClick={() => {
             signOutGoogle();
           }}
         >
           Sign Out Google
-        </button>
-
-        {/* <GoogleLogout
-          clientId="950311351563-mfitsq5hdbl9hlscrtsou5rilbr730ou.apps.googleusercontent.com"
-          buttonText="Sign Out"
-          //   onLogoutSuccess={() => signOut()}
-        /> */}
+        </p>
 
         <img
           id="profile"
           src={require("../assets/profile.png")}
           alt="Profile"
-        ></img>
+          onMouseOver={(e) => e.currentTarget.src=require("../assets/profile-hover.png")}
+          onMouseOut={(e) => e.currentTarget.src=require("../assets/profile.png")}
+          onClick={() => {
+            window.location = "/profile";
+          }}
+        />
       </div>
     </div>
   );
@@ -53,4 +57,4 @@ const LoginHeader = (pops) => {
   );
 };
 
-export {Header, LoginHeader};
+export { Header, LoginHeader };

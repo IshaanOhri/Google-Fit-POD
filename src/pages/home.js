@@ -2,13 +2,14 @@
  * @Author: Ishaan Ohri
  * @Date: 2022-01-28 10:37:37
  * @Last Modified by: Ishaan Ohri
- * @Last Modified time: 2022-01-31 14:10:32
+ * @Last Modified time: 2022-01-31 16:28:07
  * @Description: First page of the project. Contains a Google Sign In button. After successful sign in user is redirected to /dashboard
  */
 import React, { useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import "../assets/styles/home.css";
 import { LoginHeader } from "../layouts/header";
+
 const Home = (props) => {
   useEffect(() => {
     if (sessionStorage.getItem("googleUserDetails")) {

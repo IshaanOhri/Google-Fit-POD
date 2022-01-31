@@ -32,7 +32,7 @@ import {
 import { render } from "@testing-library/react";
 import Loader from "../components/loader";
 import { calculateDates } from "../utils/date";
-import {Header} from "../layouts/header";
+import { Header } from "../layouts/header";
 
 import {
   BarChart,
@@ -46,12 +46,6 @@ import {
 import { createGraphData } from "../utils/graphData";
 
 const Dashboard = (props) => {
-  useEffect(()=>{
-    if(!sessionStorage.getItem("googleUserDetails")){
-    window.location.href = "/";
-    }
-  })
-
   const [loading, setLoading] = useState(true);
 
   const details = {
@@ -59,15 +53,15 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
+    if (!sessionStorage.getItem("googleUserDetails")) {
+      window.location.href = "/";
+    }
+
     const { startTime, endTime, dates } = calculateDates();
 
     const bearerToken = JSON.parse(
       sessionStorage.getItem("googleUserDetails")
     ).accessToken;
-    console.log(
-      "🚀 ~ file: dashboard.js ~ line 65 ~ useEffect ~ bearerToken",
-      bearerToken
-    );
 
     async function fetchData() {
       await getStepCount(bearerToken, startTime, endTime, 86400000);
