@@ -5,6 +5,7 @@ import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import Steps from "./pages/steps";
 import Distance from "./pages/distance";
+import Speed from "./pages/speed";
 
 export class App extends Component {
   render() {
@@ -17,7 +18,7 @@ export class App extends Component {
             <Route path="/profile" element={<Profile />} />
             <Route path="/steps" element={<Steps />} />
             <Route path='/distance' element={<Distance/>} />
-        {/* <Route path='/speed' element={<Speed/>} /> */}
+        <Route path='/speed' element={<Speed/>} />
         {/* <Route path='/active-minutes' element={<ActiveMinutes/>} /> */}
         {/* <Route path='/calories-expended' element={<CaloriesExpended/>} /> */}
         {/* <Route path='/heart-minutes' element={<HeartMinutes/>} /> */}

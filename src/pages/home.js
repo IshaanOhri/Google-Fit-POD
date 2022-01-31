@@ -2,7 +2,7 @@
  * @Author: Ishaan Ohri
  * @Date: 2022-01-28 10:37:37
  * @Last Modified by: Ishaan Ohri
- * @Last Modified time: 2022-01-31 15:32:15
+ * @Last Modified time: 2022-01-31 21:49:55
  * @Description: First page of the project. Contains a Google Sign In button. After successful sign in user is redirected to /dashboard
  */
 import React, { useEffect } from "react";
@@ -12,8 +12,14 @@ import { LoginHeader } from "../layouts/header";
 
 const Home = (props) => {
   useEffect(() => {
-    if (sessionStorage.getItem("googleUserDetails")) {
-      window.location.href = "/dashboard";
+    if (
+      !sessionStorage.getItem("googleUserDetails") ||
+      new Date().getTime() >
+        JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
+          .expires_at
+    ) {
+      sessionStorage.clear();
+      window.location.href = "/";
     }
   });
 

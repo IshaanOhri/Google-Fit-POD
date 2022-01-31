@@ -1,34 +1,40 @@
+/*
+ * @Author: Ishaan Ohri 
+ * @Date: 2022-01-31 22:35:21 
+ * @Last Modified by: Ishaan Ohri
+ * @Last Modified time: 2022-01-31 22:36:18
+ * @Description: CSS file for profile page
+ */
 body {
   background-color: var(--black);
   font-family: var(--font);
 }
 
-
 #profileCard {
-    padding: 60px 30px;
-    box-shadow: var(--green) 0px 2px 8px 0px;
-    transition: 0.3s;
-    border-radius: 10px;
-    color: var(--green);
-    font-size: 1.2em;
-    text-align: center;
-    width: fit-content;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 0%;
-  }
-  
-  #profileCard:hover {
-    box-shadow: var(--green) 0px 3px 8px 5px;
-  }
-  #profileCard p {
-    padding: 10px;
-  }
+  padding: 60px 30px;
+  box-shadow: var(--green) 0px 2px 8px 0px;
+  transition: 0.3s;
+  border-radius: 10px;
+  color: var(--green);
+  font-size: 1.2em;
+  text-align: center;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 0%;
+}
 
-  #profileImage{
-      border-radius: 50%;
-      height: 100px;
-      width: 100px;
-  }
+#profileCard:hover {
+  box-shadow: var(--green) 0px 3px 8px 5px;
+}
+#profileCard p {
+  padding: 10px;
+}
+
+#profileImage {
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+}

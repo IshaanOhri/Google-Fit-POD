@@ -14,7 +14,13 @@ const Profile = (props) => {
   };
 
   useEffect(() => {
-    if (!sessionStorage.getItem("googleUserDetails")) {
+    if (
+      !sessionStorage.getItem("googleUserDetails") ||
+      new Date().getTime() >
+        JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
+          .expires_at
+    ) {
+      sessionStorage.clear();
       window.location.href = "/";
     }
 

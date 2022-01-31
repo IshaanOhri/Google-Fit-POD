@@ -23,6 +23,15 @@ import {
 } from "@inrupt/solid-client";
 
 import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+import {
   login,
   logout,
   handleIncomingRedirect,
@@ -44,7 +53,13 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
-    if (!sessionStorage.getItem("googleUserDetails")) {
+    if (
+      !sessionStorage.getItem("googleUserDetails") ||
+      new Date().getTime() >
+        JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
+          .expires_at
+    ) {
+      sessionStorage.clear();
       window.location.href = "/";
     }
 
@@ -74,6 +89,7 @@ const Dashboard = (props) => {
   ) : (
     <>
       <Header></Header>
+
       <div id="options">
         <table>
           <tbody>
@@ -86,49 +102,281 @@ const Dashboard = (props) => {
                     window.location.href = "/steps";
                   }}
                 >
-                  <img src={require("../assets/steps.png")} alt="" />
-                  <p>Steps</p>
+                  <div>
+                    <div className="cardHeading">
+                      <img src={require("../assets/steps.png")} alt="" />
+                      <p>Steps</p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("steps")[6].data}
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("steps")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Steps" fill="#32d29b" />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
 
               <td>
-                <div className="option noselect" id="steps"
-                
-                onClick={() => {
-                  window.location.href = "/distance";
-                }}>
-                  <img src={require("../assets/distance.png")} alt="" />
-                  <p>Distance</p>
+                <div
+                  className="option noselect"
+                  id="distance"
+                  onClick={() => {
+                    window.location.href = "/distance";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img src={require("../assets/distance.png")} alt="" />
+                      <p>Distance</p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("distance")[6].data} km
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("distance")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Distance" fill="#32d29b" />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
 
               <td>
-                <div className="option noselect" id="steps">
-                  <img src={require("../assets/speed.png")} alt="" />
-                  <p>Speed</p>
+                <div
+                  className="option noselect"
+                  id="speed"
+                  onClick={() => {
+                    window.location.href = "/speed";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img src={require("../assets/speed.png")} alt="" />
+                      <p>Speed</p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("speed")[6].data} km/hr
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("speed")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Speed" fill="#32d29b" />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
             </tr>
 
             <tr>
               <td>
-                <div className="option noselect" id="steps">
-                  <img src={require("../assets/active-minutes.png")} alt="" />
-                  <p>Active Minutes</p>
+                <div
+                  className="option noselect"
+                  id="activeMinutes"
+                  onClick={() => {
+                    window.location.href = "/active-minutes";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img
+                        src={require("../assets/active-minutes.png")}
+                        alt=""
+                      />
+                      <p>
+                        Active
+                        <br />
+                        Minutes
+                      </p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("activeMinutes")[6].data} min
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("activeMinutes")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar
+                        dataKey="data"
+                        name="Active Minutes"
+                        fill="#32d29b"
+                      />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
 
               <td>
-                <div className="option noselect" id="steps">
-                  <img src={require("../assets/calories.png")} alt="" />
-                  <p>Calories Expended</p>
+                <div
+                  className="option noselect"
+                  id="caloriesExpended"
+                  onClick={() => {
+                    window.location.href = "/calories-expended";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img src={require("../assets/calories.png")} alt="" />
+                      <p>
+                        Calories
+                        <br />
+                        Expended
+                      </p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("caloriesExpended")[6].data} Cal
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("caloriesExpended")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar
+                        dataKey="data"
+                        name="Calories Expended"
+                        fill="#32d29b"
+                      />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
 
               <td>
-                <div className="option noselect" id="steps">
-                  <img src={require("../assets/heart-minutes.png")} alt="" />
-                  <p>Heart Minutes</p>
+                <div
+                  className="option noselect"
+                  id="heartMinutes"
+                  onClick={() => {
+                    window.location.href = "/heart-minutes";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img
+                        src={require("../assets/heart-minutes.png")}
+                        alt=""
+                      />
+                      <p>
+                        Heart
+                        <br />
+                        Minutes
+                      </p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("heartMinutes")[6].data} pts
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("heartMinutes")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Heart Minutes" fill="#32d29b" />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -136,9 +384,49 @@ const Dashboard = (props) => {
             <tr>
               <td></td>
               <td>
-                <div className="option noselect" id="steps">
-                  <img src={require("../assets/sleep.png")} alt="" />
-                  <p>Sleep Segment</p>
+                <div
+                  className="option noselect"
+                  id="sleepSegment"
+                  onClick={() => {
+                    window.location.href = "/sleep-segment";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img src={require("../assets/sleep.png")} alt="" />
+                      <p>
+                        Sleep
+                        <br />
+                        Segment
+                      </p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("sleepSegment")[6].data} km
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("sleepSegment")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Sleep Segment" fill="#32d29b" />
+                    </BarChart>
+                  </div>
                 </div>
               </td>
               <td></td>

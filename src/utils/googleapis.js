@@ -50,7 +50,6 @@ const getStepCount = async (
     });
 
     sessionStorage.setItem("steps", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -110,7 +109,6 @@ const getDistance = async (
     });
 
     sessionStorage.setItem("distance", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -170,7 +168,6 @@ const getActiveMinutes = async (
     });
 
     sessionStorage.setItem("activeMinutes", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -222,7 +219,7 @@ const getCaloriesExpended = async (
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].fpVal;
-        if (value !== undefined) values.push(value);
+        if (value !== undefined) values.push(Math.ceil(value));
         else values.push(0);
       } catch (error) {
         values.push(0);
@@ -230,7 +227,6 @@ const getCaloriesExpended = async (
     });
 
     sessionStorage.setItem("caloriesExpended", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -290,7 +286,6 @@ const getHeartMinutes = async (
     });
 
     sessionStorage.setItem("heartMinutes", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -350,7 +345,6 @@ const getSleepSegment = async (
     });
 
     sessionStorage.setItem("sleepSegment", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {
@@ -411,14 +405,13 @@ const getSpeed = async (
           speed += each.fpVal;
         });
 
-        values.push(speed / count);
+        values.push((speed / count).toPrecision(2));
       } catch (error) {
         values.push(0);
       }
     });
 
     sessionStorage.setItem("speed", JSON.stringify(values));
-    console.log(values);
 
     return values;
   } catch (e) {

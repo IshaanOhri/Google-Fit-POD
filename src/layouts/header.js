@@ -49,7 +49,7 @@ const Header = (pops) => {
 const LoginHeader = (pops) => {
   return (
     <div className="loginHeader">
-      <div id="home">
+      <div id="home" className="tracking-in-expand">
         <p>HealthKeeper</p>
         <img id="logo" src={require("../assets/logo.png")} alt="Logo"></img>
       </div>

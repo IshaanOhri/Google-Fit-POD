@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { createGraphDataFull } from "../utils/graphData";
 
-const Distance = (props) => {
+const Speed = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
 
@@ -31,7 +31,7 @@ const Distance = (props) => {
       window.location.href = "/";
     }
 
-    setData(createGraphDataFull("distance"));
+    setData(createGraphDataFull("speed"));
 
     setLoading(false);
   }, []);
@@ -49,18 +49,17 @@ const Distance = (props) => {
               scale="point"
               style={{ fontSize: "0.8rem" }}
               tickMargin={10}
-
               interval={0}
               padding={{ left: 80, right: 80 }}
             />
             <YAxis style={{ fontSize: "0.8rem" }} />
             <Tooltip />
-            <Bar dataKey="data" name="Distance" fill="#32d29b" />
+            <Bar dataKey="data" name="Speed" fill="#32d29b" />
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div id="graphInfo">
-        <p id="title">DISTANCE (km)</p>
+        <p id="title">SPEED (km/hr)</p>
         <p id="dates">
           {data[0].name} - {data[6].name}
         </p>
@@ -69,4 +68,4 @@ const Distance = (props) => {
   );
 };
 
-export default Distance;
+export default Speed;

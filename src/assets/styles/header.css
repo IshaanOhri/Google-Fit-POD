@@ -1,3 +1,10 @@
+/*
+ * @Author: Ishaan Ohri 
+ * @Date: 2022-01-31 22:33:33 
+ * @Last Modified by: Ishaan Ohri
+ * @Last Modified time: 2022-01-31 22:36:08
+ * @Description: CSS file for main header and login header
+ */
 #logo,
 #profile {
   width: 30px;
@@ -22,7 +29,7 @@
   padding: 10px 20px;
   color: var(--green);
   font-weight: 500;
-  font-size: 1.2em;
+  font-size: 1.5em;
   border-bottom: 2px var(--green) solid;
 }
 
@@ -50,6 +57,37 @@
 #buttons p:hover {
   color: var(--white);
   cursor: pointer;
+}
+
+.tracking-in-expand {
+  -webkit-animation: tracking-in-expand 2s cubic-bezier(0.215, 0.61, 0.355, 1)
+    both;
+  animation: tracking-in-expand 2s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+@-webkit-keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .noselect {

@@ -1,13 +1,20 @@
+/*
+ * @Author: Ishaan Ohri 
+ * @Date: 2022-01-31 22:33:51 
+ * @Last Modified by: Ishaan Ohri
+ * @Last Modified time: 2022-01-31 22:36:04
+ * @Description: CSS file for home page
+ */
 :root {
-	--green: #32d29b;
-	--black: #0e1016;
-	--light-black: #252936;
-	--dark-grey: #475366;
-	--grey: #76767c;
-	--light-grey: #afaeae;
-	--white: #ffffff;
-	--error: #d64242;
-	--bgcolor: #f6f7f9;
+  --green: #32d29b;
+  --black: #0e1016;
+  --light-black: #252936;
+  --dark-grey: #475366;
+  --grey: #76767c;
+  --light-grey: #afaeae;
+  --white: #ffffff;
+  --error: #d64242;
+  --bgcolor: #f6f7f9;
   --font: "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
     "Helvetica Neue", sans-serif;
 }
