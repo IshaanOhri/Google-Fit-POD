@@ -2,7 +2,7 @@
  * @Author: Ishaan Ohri
  * @Date: 2022-01-28 10:37:37
  * @Last Modified by: Ishaan Ohri
- * @Last Modified time: 2022-01-31 16:28:07
+ * @Last Modified time: 2022-01-31 15:32:15
  * @Description: First page of the project. Contains a Google Sign In button. After successful sign in user is redirected to /dashboard
  */
 import React, { useEffect } from "react";
@@ -27,7 +27,7 @@ const Home = (props) => {
       <LoginHeader></LoginHeader>
       <div id="googleSignInBtn">
         <GoogleLogin
-          clientId=""
+          clientId="950311351563-mfitsq5hdbl9hlscrtsou5rilbr730ou.apps.googleusercontent.com"
           buttonText="Sign In"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}

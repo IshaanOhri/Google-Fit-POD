@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import { createGraphData } from "../utils/graphData";
 
-const Steps = (props) => {
+const Distance = (props) => {
   const [loading, setLoading] = useState(true);
 const [data, setData] = useState({});
 
@@ -25,7 +25,7 @@ const [data, setData] = useState({});
       window.location.href = "/";
     }
 
-    setData(createGraphData("steps"));
+    setData(createGraphData("distance"));
 
     setLoading(false);
   }, []);
@@ -48,16 +48,16 @@ const [data, setData] = useState({});
             />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="data" name="Steps" fill="#32d29b" />
+            <Bar dataKey="data" name="Distance" fill="#32d29b" />
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div id="graphInfo">
-          <p id="title">STEP COUNT</p>
+          <p id="title">DISTANCE (KM)</p>
           <p id="dates">{data[0].name} - {data[6].name}</p>
           </div>
     </>
   );
 };
 
-export default Steps;
+export default Distance;

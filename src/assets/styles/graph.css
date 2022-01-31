@@ -1,0 +1,19 @@
+#graph {
+  padding: 60px 0px 10px 0px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+#graphInfo{
+  text-align: center;
+  color: var(--green);
+  font-size: 1.5em;
+  font-weight: 800;
+  line-height: 50%;
+}
+
+#dates{
+  font-weight: 400;
+}

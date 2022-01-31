@@ -102,7 +102,7 @@ const getDistance = async (
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].fpVal;
-        if (value !== undefined) values.push(value);
+        if (value !== undefined) values.push((value / 1000).toPrecision(2));
         else values.push(0);
       } catch (error) {
         values.push(0);

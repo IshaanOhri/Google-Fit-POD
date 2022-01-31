@@ -10,7 +10,7 @@ const Profile = (props) => {
   const [imageUrl, setImageUrl] = useState("");
 
   const details = {
-    message: "Please wait while we configure your dashboard",
+    message: "Please wait while we configure your profile",
   };
 
   useEffect(() => {

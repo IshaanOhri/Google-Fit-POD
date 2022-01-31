@@ -34,15 +34,6 @@ import Loader from "../components/loader";
 import { calculateDates } from "../utils/date";
 import { Header } from "../layouts/header";
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
 import { createGraphData } from "../utils/graphData";
 
 const Dashboard = (props) => {
@@ -88,14 +79,24 @@ const Dashboard = (props) => {
           <tbody>
             <tr>
               <td>
-                <div className="option noselect" id="steps">
+                <div
+                  className="option noselect"
+                  id="steps"
+                  onClick={() => {
+                    window.location.href = "/steps";
+                  }}
+                >
                   <img src={require("../assets/steps.png")} alt="" />
                   <p>Steps</p>
                 </div>
               </td>
 
               <td>
-                <div className="option noselect" id="steps">
+                <div className="option noselect" id="steps"
+                
+                onClick={() => {
+                  window.location.href = "/distance";
+                }}>
                   <img src={require("../assets/distance.png")} alt="" />
                   <p>Distance</p>
                 </div>
@@ -147,19 +148,6 @@ const Dashboard = (props) => {
       </div>
     </>
   );
-  // return <ResponsiveContainer width="40%" aspect={3}>
-  //   <BarChart
-  //     width={500}
-  //     height={300}
-  //     data={createGraphData('steps')}
-  //     barSize={30}
-  //   >
-  //     <XAxis dataKey="name" scale="point" padding={{ left: 50, right: 50}} />
-  //     <YAxis />
-  //     <Tooltip />
-  //     <Bar dataKey="data" name="Steps" fill="#32d29b"/>
-  //   </BarChart>
-  // </ResponsiveContainer>;
 };
 
 export default Dashboard;
