@@ -2,7 +2,7 @@
  * @Author: Ishaan Ohri 
  * @Date: 2022-01-31 22:35:21 
  * @Last Modified by: Ishaan Ohri
- * @Last Modified time: 2022-01-31 22:36:18
+ * @Last Modified time: 2022-02-01 15:05:14
  * @Description: CSS file for profile page
  */
 body {
@@ -31,6 +31,24 @@ body {
 }
 #profileCard p {
   padding: 10px;
+  font-weight: 300;
+}
+
+#writeToPOD{
+  background: none;
+  border: 1px var(--green) solid;
+  border-radius: 3px;
+  padding: 15px 20px;
+  color: var(--green);
+  font-size: .8em;
+  margin: 20px 0px 0px 0px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.disabled{
+  opacity: 0.3;
+  cursor: not-allowed !important;
 }
 
 #profileImage {

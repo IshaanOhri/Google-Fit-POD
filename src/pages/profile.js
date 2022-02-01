@@ -4,10 +4,16 @@ import Loader from "../components/loader";
 import { Header } from "../layouts/header";
 
 const Profile = (props) => {
+  const [loggedInPOD, setloggedInPOD] = useState(
+    false || sessionStorage.getItem("podStatus")
+  );
   const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [email, setEmail] = useState("example@healthkeeper.com");
+  const [name, setName] = useState("Your Name");
+  const [imageUrl, setImageUrl] = useState(
+    "https://res.cloudinary.com/crunchbase-production/image/upload/c_thumb,h_256,w_256,f_auto,g_faces,z_0.7,q_auto:eco,dpr_1/qgwskk4vyncffxlzgs39"
+  );
+  const [webId, setWebId] = useState("");
 
   const details = {
     message: "Please wait while we configure your profile",
@@ -36,6 +42,16 @@ const Profile = (props) => {
     setImageUrl(imageUrl);
 
     setLoading(false);
+
+    window.addEventListener("load", function (event) {
+      if (loggedInPOD) {
+        document.getElementById("writeToPOD").disabled = false;
+        document.getElementById("writeToPOD").classList.remove("disabled");
+      } else {
+        document.getElementById("writeToPOD").disabled = true;
+        document.getElementById("writeToPOD").className = "disabled";
+      }
+    });
   }, []);
 
   return loading ? (
@@ -47,6 +63,15 @@ const Profile = (props) => {
         <img id="profileImage" src={imageUrl} alt="" />
         <p id="name">{name.toUpperCase()}</p>
         <p id="email">{email}</p>
+        <p id="webId">{webId}</p>
+        <button
+          id="writeToPOD"
+          onClick={() => {
+            alert("hey");
+          }}
+        >
+          Write to POD
+        </button>
       </div>
     </>
   );

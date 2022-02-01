@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
+  ResponsiveContainer,CartesianGrid
 } from "recharts";
 import { createGraphDataFull } from "../utils/graphData";
 
@@ -44,6 +44,7 @@ const Steps = (props) => {
       <div id="graph">
         <ResponsiveContainer width="60%" aspect={2}>
           <BarChart data={data} barSize={60}>
+          <CartesianGrid strokeDasharray="3" />
             <XAxis
               dataKey="name"
               scale="point"

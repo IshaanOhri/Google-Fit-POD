@@ -5,8 +5,8 @@ import {
   getActiveMinutes,
   getCaloriesExpended,
   getDistance,
-  getHeartMinutes,
-  getSleepSegment,
+  getHeartRate,
+  getSleepDuration,
   getSpeed,
   getStepCount,
 } from "../utils/googleapis";
@@ -74,8 +74,8 @@ const Dashboard = (props) => {
       await getDistance(bearerToken, startTime, endTime, 86400000);
       await getActiveMinutes(bearerToken, startTime, endTime, 86400000);
       await getCaloriesExpended(bearerToken, startTime, endTime, 86400000);
-      await getHeartMinutes(bearerToken, startTime, endTime, 86400000);
-      await getSleepSegment(bearerToken, startTime, endTime, 86400000);
+      await getHeartRate(bearerToken, startTime, endTime, 86400000);
+      await getSleepDuration(bearerToken, startTime, endTime, 86400000);
       await getSpeed(bearerToken, startTime, endTime, 86400000);
 
       setLoading(false);
@@ -333,33 +333,33 @@ const Dashboard = (props) => {
               <td>
                 <div
                   className="option noselect"
-                  id="heartMinutes"
+                  id="heartRate"
                   onClick={() => {
-                    window.location.href = "/heart-minutes";
+                    window.location.href = "/heart-rate";
                   }}
                 >
                   <div>
                     <div className="cardHeading">
                       <img
-                        src={require("../assets/heart-minutes.png")}
+                        src={require("../assets/heart-rate.png")}
                         alt=""
                       />
                       <p>
                         Heart
                         <br />
-                        Minutes
+                        Rate
                       </p>
                     </div>
                     <div className="cardStats">
                       <p className="cardData">
-                        {createGraphData("heartMinutes")[6].data} pts
+                        {createGraphData("heartRate")[6].data} bpm
                       </p>
                       <p className="cardDataDay">Today</p>
                     </div>
                   </div>
                   <div className="cardGraph">
                     <BarChart
-                      data={createGraphData("heartMinutes")}
+                      data={createGraphData("heartRate")}
                       barSize={10}
                       width={200}
                       height={100}
@@ -374,21 +374,21 @@ const Dashboard = (props) => {
                         style={{ fontSize: "0.8rem" }}
                         padding={{ left: 10, right: 10 }}
                       />
-                      <Bar dataKey="data" name="Heart Minutes" fill="#32d29b" />
+                      <Bar dataKey="data" name="Heart Rate" fill="#32d29b" />
                     </BarChart>
                   </div>
                 </div>
               </td>
             </tr>
 
-            <tr>
+            {/* <tr>
               <td></td>
               <td>
                 <div
                   className="option noselect"
-                  id="sleepSegment"
+                  id="sleepDuration"
                   onClick={() => {
-                    window.location.href = "/sleep-segment";
+                    window.location.href = "/sleep-duration";
                   }}
                 >
                   <div>
@@ -397,19 +397,19 @@ const Dashboard = (props) => {
                       <p>
                         Sleep
                         <br />
-                        Segment
+                        Duration
                       </p>
                     </div>
                     <div className="cardStats">
                       <p className="cardData">
-                        {createGraphData("sleepSegment")[6].data} km
+                        {createGraphData("sleepDuration")[6].data} min
                       </p>
                       <p className="cardDataDay">Today</p>
                     </div>
                   </div>
                   <div className="cardGraph">
                     <BarChart
-                      data={createGraphData("sleepSegment")}
+                      data={createGraphData("sleepDuration")}
                       barSize={10}
                       width={200}
                       height={100}
@@ -424,13 +424,13 @@ const Dashboard = (props) => {
                         style={{ fontSize: "0.8rem" }}
                         padding={{ left: 10, right: 10 }}
                       />
-                      <Bar dataKey="data" name="Sleep Segment" fill="#32d29b" />
+                      <Bar dataKey="data" name="Sleep Duration" fill="#32d29b" />
                     </BarChart>
                   </div>
                 </div>
               </td>
               <td></td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>

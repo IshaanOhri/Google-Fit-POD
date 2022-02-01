@@ -1,13 +1,19 @@
+// Function to save and return step count for past 7 days from Google API
 const getStepCount = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
@@ -21,6 +27,7 @@ const getStepCount = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -29,16 +36,20 @@ const getStepCount = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].intVal;
@@ -49,6 +60,7 @@ const getStepCount = async (
       }
     });
 
+    // Save to session storage
     sessionStorage.setItem("steps", JSON.stringify(values));
 
     return values;
@@ -57,16 +69,22 @@ const getStepCount = async (
   }
 };
 
+// Function to save and return distance for past 7 days from Google API
 const getDistance = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
@@ -80,6 +98,7 @@ const getDistance = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -88,16 +107,20 @@ const getDistance = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].fpVal;
@@ -108,6 +131,7 @@ const getDistance = async (
       }
     });
 
+    // Save to session storage
     sessionStorage.setItem("distance", JSON.stringify(values));
 
     return values;
@@ -116,16 +140,22 @@ const getDistance = async (
   }
 };
 
+// Function to save and return active minutes for past 7 days from Google API
 const getActiveMinutes = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
@@ -139,6 +169,7 @@ const getActiveMinutes = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -147,16 +178,20 @@ const getActiveMinutes = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].intVal;
@@ -167,6 +202,7 @@ const getActiveMinutes = async (
       }
     });
 
+    // Save to session storage
     sessionStorage.setItem("activeMinutes", JSON.stringify(values));
 
     return values;
@@ -175,16 +211,22 @@ const getActiveMinutes = async (
   }
 };
 
+// Function to save and return calories expended for past 7 days from Google API
 const getCaloriesExpended = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
@@ -198,6 +240,7 @@ const getCaloriesExpended = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -206,16 +249,20 @@ const getCaloriesExpended = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[0].fpVal;
@@ -226,6 +273,7 @@ const getCaloriesExpended = async (
       }
     });
 
+    // Save to session storage
     sessionStorage.setItem("caloriesExpended", JSON.stringify(values));
 
     return values;
@@ -234,20 +282,26 @@ const getCaloriesExpended = async (
   }
 };
 
-const getHeartMinutes = async (
+// Function to save and return heart rate for past 7 days from Google API
+const getHeartRate = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
-        dataTypeName: "com.google.heart_minutes",
+        dataTypeName: "com.google.heart_rate.bpm",
       },
     ],
     bucketByTime: {
@@ -257,6 +311,7 @@ const getHeartMinutes = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -265,57 +320,74 @@ const getHeartMinutes = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
-        const value = day.dataset[0].point[0].value[1].intVal;
-        if (value !== undefined) values.push(value);
-        else values.push(0);
+        const value = day.dataset[0].point[0].value;
+
+        var beats = 0,
+          count = 0;
+
+        value.forEach((each) => {
+          count += 1;
+          beats += each.fpVal;
+        });
+
+        values.push(Math.ceil(beats / count));
       } catch (error) {
         values.push(0);
       }
     });
 
-    sessionStorage.setItem("heartMinutes", JSON.stringify(values));
+    // Save to session storage
+    sessionStorage.setItem("heartRate", JSON.stringify(values));
 
     return values;
   } catch (e) {
-    console.log(`Heart Minutes Error ${e}`);
+    console.log(`Heart Rate Error ${e}`);
   }
 };
 
-const getSleepSegment = async (
+// Function to save and return sleep duration for past 7 days from Google API
+const getSleepDuration = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
         dataTypeName: "com.google.sleep.segment",
       },
     ],
-    bucketByTime: {
-      durationMillis: durationMillis,
-    },
     startTimeMillis: startTimeMillis,
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -324,16 +396,20 @@ const getSleepSegment = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value[1].intVal;
@@ -344,24 +420,31 @@ const getSleepSegment = async (
       }
     });
 
-    sessionStorage.setItem("sleepSegment", JSON.stringify(values));
+    // Save to session storage
+    sessionStorage.setItem("sleepDuration", JSON.stringify(values));
 
     return values;
   } catch (e) {
-    console.log(`Sleep Segment Error ${e}`);
+    console.log(`Sleep Duration Error ${e}`);
   }
 };
 
+// Function to save and return speed for past 7 days from Google API
 const getSpeed = async (
   token,
   startTimeMillis,
   endTimeMillis,
   durationMillis
 ) => {
+  // Declare empty headers
   var myHeaders = new Headers();
+
+  // Append Authorization header with Bearer token
   myHeaders.append("Authorization", `Bearer ${token}`);
+  // Append Content-Type header
   myHeaders.append("Content-Type", "application/json");
 
+  // Create request body
   var raw = JSON.stringify({
     aggregateBy: [
       {
@@ -375,6 +458,7 @@ const getSpeed = async (
     endTimeMillis: endTimeMillis,
   });
 
+  // Create request options
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
@@ -383,16 +467,20 @@ const getSpeed = async (
   };
 
   try {
+    // Send API request
     const fetchReq = await fetch(
       "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
       requestOptions
     );
+
+    // Convert response into json
     const fetchReqRes = await fetchReq.json();
 
     var values = [];
 
     const bucket = fetchReqRes.bucket;
 
+    // Extract required data and push into `values`
     bucket.forEach((day) => {
       try {
         const value = day.dataset[0].point[0].value;
@@ -411,6 +499,7 @@ const getSpeed = async (
       }
     });
 
+    // Save to session storage
     sessionStorage.setItem("speed", JSON.stringify(values));
 
     return values;
@@ -424,7 +513,7 @@ export {
   getDistance,
   getActiveMinutes,
   getCaloriesExpended,
-  getHeartMinutes,
-  getSleepSegment,
+  getHeartRate,
+  getSleepDuration,
   getSpeed,
 };
