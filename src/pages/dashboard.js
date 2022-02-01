@@ -298,7 +298,7 @@ const Dashboard = (props) => {
                     </div>
                     <div className="cardStats">
                       <p className="cardData">
-                        {createGraphData("caloriesExpended")[6].data} Cal
+                        {createGraphData("caloriesExpended")[6].data} cal
                       </p>
                       <p className="cardDataDay">Today</p>
                     </div>
