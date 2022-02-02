@@ -508,6 +508,67 @@ const getSpeed = async (
   }
 };
 
+const getHeartPoints = async (
+  token,
+  startTimeMillis,
+  endTimeMillis,
+  durationMillis
+) => {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${token}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    aggregateBy: [
+      {
+        dataTypeName: "com.google.heart_minutes",
+      },
+    ],
+    bucketByTime: {
+      durationMillis: durationMillis,
+    },
+    startTimeMillis: startTimeMillis,
+    endTimeMillis: endTimeMillis,
+  });
+    console.log("🚀 ~ file: googleapis.js ~ line 533 ~ endTimeMillis", endTimeMillis)
+    console.log("🚀 ~ file: googleapis.js ~ line 533 ~ startTimeMillis", startTimeMillis)
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  try {
+    const fetchReq = await fetch(
+      "https://fitness.googleapis.com/fitness/v1/users/me/dataset:aggregate",
+      requestOptions
+    );
+    const fetchReqRes = await fetchReq.json();
+
+    var values = [];
+
+    const bucket = fetchReqRes.bucket;
+
+    bucket.forEach((day) => {
+      try {
+        const value = day.dataset[0].point[0].value[0].fpVal;
+        if (value !== undefined) values.push(value);
+        else values.push(0);
+      } catch (error) {
+        values.push(0);
+      }
+    });
+
+    sessionStorage.setItem("heartPoints", JSON.stringify(values));
+
+    return values;
+  } catch (e) {
+    console.log(`Heart Minutes Error ${e}`);
+  }
+};
+
 export {
   getStepCount,
   getDistance,
@@ -516,4 +577,5 @@ export {
   getHeartRate,
   getSleepDuration,
   getSpeed,
+  getHeartPoints
 };

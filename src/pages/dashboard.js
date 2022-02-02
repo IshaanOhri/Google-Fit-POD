@@ -5,6 +5,7 @@ import {
   getActiveMinutes,
   getCaloriesExpended,
   getDistance,
+  getHeartPoints,
   getHeartRate,
   getSleepDuration,
   getSpeed,
@@ -68,6 +69,10 @@ const Dashboard = (props) => {
     const bearerToken = JSON.parse(
       sessionStorage.getItem("googleUserDetails")
     ).accessToken;
+    console.log(
+      "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
+      bearerToken
+    );
 
     async function fetchData() {
       await getStepCount(bearerToken, startTime, endTime, 86400000);
@@ -75,6 +80,7 @@ const Dashboard = (props) => {
       await getActiveMinutes(bearerToken, startTime, endTime, 86400000);
       await getCaloriesExpended(bearerToken, startTime, endTime, 86400000);
       await getHeartRate(bearerToken, startTime, endTime, 86400000);
+      await getHeartPoints(bearerToken, startTime, endTime, 86400000);
       await getSleepDuration(bearerToken, startTime, endTime, 86400000);
       await getSpeed(bearerToken, startTime, endTime, 86400000);
 
@@ -340,10 +346,7 @@ const Dashboard = (props) => {
                 >
                   <div>
                     <div className="cardHeading">
-                      <img
-                        src={require("../assets/heart-rate.png")}
-                        alt=""
-                      />
+                      <img src={require("../assets/heart-rate.png")} alt="" />
                       <p>
                         Heart
                         <br />
@@ -381,8 +384,56 @@ const Dashboard = (props) => {
               </td>
             </tr>
 
-            {/* <tr>
-              <td></td>
+            <tr>
+              <td>
+                <div
+                  className="option noselect"
+                  id="heartPoints"
+                  onClick={() => {
+                    window.location.href = "/heart-points";
+                  }}
+                >
+                  <div>
+                    <div className="cardHeading">
+                      <img
+                        src={require("../assets/heart-points.png")}
+                        alt=""
+                      />
+                      <p>
+                        Heart
+                        <br />
+                        Points
+                      </p>
+                    </div>
+                    <div className="cardStats">
+                      <p className="cardData">
+                        {createGraphData("heartPoints")[6].data} pts
+                      </p>
+                      <p className="cardDataDay">Today</p>
+                    </div>
+                  </div>
+                  <div className="cardGraph">
+                    <BarChart
+                      data={createGraphData("heartPoints")}
+                      barSize={10}
+                      width={200}
+                      height={100}
+                    >
+                      <XAxis
+                        dataKey="name"
+                        scale="point"
+                        height={30}
+                        axisLine={false}
+                        tickLine={false}
+                        interval={0}
+                        style={{ fontSize: "0.8rem" }}
+                        padding={{ left: 10, right: 10 }}
+                      />
+                      <Bar dataKey="data" name="Heart Points" fill="#32d29b" />
+                    </BarChart>
+                  </div>
+                </div>
+              </td>
               <td>
                 <div
                   className="option noselect"
@@ -424,13 +475,17 @@ const Dashboard = (props) => {
                         style={{ fontSize: "0.8rem" }}
                         padding={{ left: 10, right: 10 }}
                       />
-                      <Bar dataKey="data" name="Sleep Duration" fill="#32d29b" />
+                      <Bar
+                        dataKey="data"
+                        name="Sleep Duration"
+                        fill="#32d29b"
+                      />
                     </BarChart>
                   </div>
                 </div>
               </td>
               <td></td>
-            </tr> */}
+            </tr>
           </tbody>
         </table>
       </div>
