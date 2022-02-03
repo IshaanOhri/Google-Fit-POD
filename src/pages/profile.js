@@ -47,7 +47,7 @@ const Profile = (props) => {
   
 async function readStepsFromPOD() {
   const webId = sessionStorage.getItem("webId");
-  // console.log(webId);
+  console.log(webId);
 
   console.log(getDefaultSession())
 
@@ -67,6 +67,18 @@ async function readStepsFromPOD() {
 
 
   useEffect(() => {
+
+    const func = async () => {
+      const session = await handleIncomingRedirect({
+        url: window.location.href,
+        restorePreviousSession: true,
+      });
+      console.log(session);
+      console.log(getDefaultSession());
+      console.log(fetch);
+    };
+
+    // func();
 
 
     readStepsFromPOD()

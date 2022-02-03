@@ -30,57 +30,79 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 
 const Home = (props) => {
-  onSessionRestore((url) => {
-    console.log(url);
-    // window.location.href = url;
-  });
+  // onSessionRestore((url) => {
+  //   console.log(url);
+  //   // window.location.href = url;
+  // });
 
-  
-async function readStepsFromPOD() {
-  const webId = sessionStorage.getItem("webId");
-  // console.log(webId);
+  async function readStepsFromPOD() {
+    const webId = sessionStorage.getItem("webId");
+    // console.log(webId);
 
-  const myDataset = await getSolidDataset(
-    `${webId}/daily-steps/Mon-Jan-24-2022`,
-    { fetch: getDefaultSession().fetch }
-  );
+    const myDataset = await getSolidDataset(
+      `${webId}/daily-steps/Mon-Jan-24-2022`,
+      { fetch: getDefaultSession().fetch }
+    );
 
-  const profile = getThing(
-    myDataset,
-    `${webId}/daily-steps/Mon-Jan-24-2022#steps`
-  );
+    const profile = getThing(
+      myDataset,
+      `${webId}/daily-steps/Mon-Jan-24-2022#steps`
+    );
 
-  console.log(getInteger(profile, "https://schema.org/Integer"));
-  // console.log(getInteger(profile, "https://schema.org/Integer"));
-}
-
+    console.log(getInteger(profile, "https://schema.org/Integer"));
+    // console.log(getInteger(profile, "https://schema.org/Integer"));
+  }
 
   useEffect(() => {
     if (sessionStorage.getItem("googleUserDetails")) {
       window.location.href = "/dashboard";
     }
 
-    // Promise based function to handle login redirect
-    handleIncomingRedirect({
-      restorePreviousSession: true,
-      onError: (error, errorDescription) => {
-        console.log(`${error} has occurred: `, errorDescription);
-      },
-    }).then(async (info) => {
-      try {
-        const profileDocumentUrl = new URL(getDefaultSession().info.webId);
+    const func = async () => {
+      const session = await handleIncomingRedirect({
+        url: window.location.href,
+        restorePreviousSession: true,
+      });
+
+      if (session.isLoggedIn) {
+        const profileDocumentUrl = new URL(session.webId);
         const webId = profileDocumentUrl.origin;
 
-        console.log(getDefaultSession());
         console.log(webId);
         sessionStorage.setItem("webId", webId);
         sessionStorage.setItem("podStatus", true);
 
-        const session = getDefaultSession();
-        console.log(session.info.isLoggedIn);
-        readStepsFromPOD()
-      } catch (e) {}
-    });
+        console.log(session);
+        console.log(getDefaultSession());
+        console.log(fetch);
+
+        readStepsFromPOD();
+      }
+    };
+
+    func();
+
+    // Promise based function to handle login redirect
+    // handleIncomingRedirect({
+    //   restorePreviousSession: true,
+    //   onError: (error, errorDescription) => {
+    //     console.log(`${error} has occurred: `, errorDescription);
+    //   },
+    // }).then(async (info) => {
+    //   try {
+    //     const profileDocumentUrl = new URL(getDefaultSession().info.webId);
+    //     const webId = profileDocumentUrl.origin;
+
+    //     console.log(getDefaultSession());
+    //     console.log(webId);
+    //     sessionStorage.setItem("webId", webId);
+    //     sessionStorage.setItem("podStatus", true);
+
+    //     const session = getDefaultSession();
+    //     console.log(session.info.isLoggedIn);
+    //     readStepsFromPOD()
+    //   } catch (e) {}
+    // });
   });
 
   const responseGoogle = (googleUser) => {
