@@ -1,16 +1,49 @@
 import React, { useEffect, useState } from "react";
 import "../assets/styles/header.css";
+import {
+  login,
+  logout,
+  handleIncomingRedirect,
+  fetch,
+  getDefaultSession,
+  onSessionRestore,
+} from "@inrupt/solid-client-authn-browser";
+import {
+  getSolidDataset,
+  getThing,
+  setThing,
+  buildThing,
+  createThing,
+  saveSolidDatasetAt,
+  createSolidDataset,
+  getInteger,
+} from "@inrupt/solid-client";
 
-// Clear session storage and redirect to home after logout
-const signOutGoogle = () => {
+// Logout of POD, clear session storage and redirect to home after logout
+const signOutGoogle = async () => {
+  await logout();
   sessionStorage.clear();
   window.location.href = "/";
 };
 
+
+// Function definition for signing out of POD
+const signOutPOD = async (e) => {
+  e.preventDefault();
+
+  await logout();
+  sessionStorage.removeItem("webId");
+};
+
+
 // Header for all pages other than home page
 // Header contains Home, Sign In POD, Sign Out POD, Sign Out Google and Profile
 const Header = (pops) => {
-  const [loggedInPOD, setloggedInPOD] = useState(false || sessionStorage.getItem("podStatus"));
+  const [loggedInPOD, setloggedInPOD] = useState(
+    false || sessionStorage.getItem("podStatus")
+  );
+  const [webId, setWebId] = useState(getDefaultSession().info.webId);
+  const [resource, setResource] = useState(webId);
 
   useEffect(() => {
     if (loggedInPOD) {
@@ -20,6 +53,7 @@ const Header = (pops) => {
       document.getElementById("solidSignInBtn").style.display = "block";
       document.getElementById("solidSignOutBtn").style.display = "none";
     }
+
   });
 
   return (
@@ -39,9 +73,23 @@ const Header = (pops) => {
       {/* Buttons div */}
       <div id="buttons">
         {/* POD Sign In button */}
-        <p id="solidSignInBtn">Sign In POD</p>
+        <p
+          id="solidSignInBtn"
+          onClick={(e) => {
+            // signInPOD(e);
+          }}
+        >
+          Sign In POD
+        </p>
         {/* POD Sign Out button */}
-        <p id="solidSignOutBtn">Sign Out POD</p>
+        <p
+          id="solidSignOutBtn"
+          onClick={(e) => {
+            signOutPOD(e);
+          }}
+        >
+          Sign Out POD
+        </p>
         {/* Google Sign Out button */}
         <p
           id="googleSignOutBtn"

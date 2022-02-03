@@ -530,8 +530,8 @@ const getHeartPoints = async (
     startTimeMillis: startTimeMillis,
     endTimeMillis: endTimeMillis,
   });
-    console.log("🚀 ~ file: googleapis.js ~ line 533 ~ endTimeMillis", endTimeMillis)
-    console.log("🚀 ~ file: googleapis.js ~ line 533 ~ startTimeMillis", startTimeMillis)
+    // console.log("🚀 ~ file: googleapis.js ~ line 533 ~ endTimeMillis", endTimeMillis)
+    // console.log("🚀 ~ file: googleapis.js ~ line 533 ~ startTimeMillis", startTimeMillis)
 
   var requestOptions = {
     method: "POST",

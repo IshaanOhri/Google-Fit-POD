@@ -69,10 +69,10 @@ const Dashboard = (props) => {
     const bearerToken = JSON.parse(
       sessionStorage.getItem("googleUserDetails")
     ).accessToken;
-    console.log(
-      "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
-      bearerToken
-    );
+    // console.log(
+    //   "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
+    //   bearerToken
+    // );
 
     async function fetchData() {
       await getStepCount(bearerToken, startTime, endTime, 86400000);
@@ -395,10 +395,7 @@ const Dashboard = (props) => {
                 >
                   <div>
                     <div className="cardHeading">
-                      <img
-                        src={require("../assets/heart-points.png")}
-                        alt=""
-                      />
+                      <img src={require("../assets/heart-points.png")} alt="" />
                       <p>
                         Heart
                         <br />
