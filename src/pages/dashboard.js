@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/dashboard.css";
 import { GoogleLogout } from "react-google-login";
-import {
-  getActiveMinutes,
-  getCaloriesExpended,
-  getDistance,
-  getHeartPoints,
-  getHeartRate,
-  getSleepDuration,
-  getSpeed,
-  getStepCount,
-} from "../utils/googleapis";
 
 import {
   getSolidDataset,
@@ -41,13 +31,12 @@ import {
 } from "@inrupt/solid-client-authn-browser";
 import { render } from "@testing-library/react";
 import Loader from "../components/loader";
-import { calculateDates } from "../utils/date";
 import { Header } from "../layouts/header";
 
 import { createGraphData } from "../utils/graphData";
 
 const Dashboard = (props) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const details = {
     message: "Please wait while we configure your dashboard",
@@ -58,36 +47,18 @@ const Dashboard = (props) => {
       !sessionStorage.getItem("googleUserDetails") ||
       new Date().getTime() >
         JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
-          .expires_at
+          .expires_at || !sessionStorage.getItem("podStatus")
     ) {
       sessionStorage.clear();
       window.location.href = "/";
     }
 
-    const { startTime, endTime, dates } = calculateDates();
-
-    const bearerToken = JSON.parse(
-      sessionStorage.getItem("googleUserDetails")
-    ).accessToken;
     // console.log(
     //   "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
     //   bearerToken
     // );
 
-    async function fetchData() {
-      await getStepCount(bearerToken, startTime, endTime, 86400000);
-      await getDistance(bearerToken, startTime, endTime, 86400000);
-      await getActiveMinutes(bearerToken, startTime, endTime, 86400000);
-      await getCaloriesExpended(bearerToken, startTime, endTime, 86400000);
-      await getHeartRate(bearerToken, startTime, endTime, 86400000);
-      await getHeartPoints(bearerToken, startTime, endTime, 86400000);
-      await getSleepDuration(bearerToken, startTime, endTime, 86400000);
-      await getSpeed(bearerToken, startTime, endTime, 86400000);
-
-      setLoading(false);
-    }
-
-    fetchData();
+    
   }, []);
 
   return loading ? (
@@ -385,6 +356,7 @@ const Dashboard = (props) => {
             </tr>
 
             <tr>
+              <td></td>
               <td>
                 <div
                   className="option noselect"
@@ -431,7 +403,7 @@ const Dashboard = (props) => {
                   </div>
                 </div>
               </td>
-              <td>
+              {/* <td>
                 <div
                   className="option noselect"
                   id="sleepDuration"
@@ -480,7 +452,7 @@ const Dashboard = (props) => {
                     </BarChart>
                   </div>
                 </div>
-              </td>
+              </td> */}
               <td></td>
             </tr>
           </tbody>
