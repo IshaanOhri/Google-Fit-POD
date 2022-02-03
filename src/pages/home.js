@@ -27,7 +27,10 @@ import {
   fetch,
   getDefaultSession,
   onSessionRestore,
+  onLogin,
 } from "@inrupt/solid-client-authn-browser";
+import { silentlyAuthenticate } from "@inrupt/solid-client-authn-browser/dist/Session";
+import ClientAuthentication from "@inrupt/solid-client-authn-browser/dist/ClientAuthentication";
 
 const Home = (props) => {
   // onSessionRestore((url) => {
@@ -74,10 +77,12 @@ const Home = (props) => {
 
         console.log(session);
         console.log(getDefaultSession());
-        console.log(fetch);
 
         readStepsFromPOD();
       }
+
+      sessionStorage.setItem("session", JSON.stringify(session));
+
     };
 
     func();
