@@ -303,6 +303,7 @@ const Home = (props) => {
   }, []);
 
   const responseGoogle = (googleUser) => {
+    console.log(googleUser)
     sessionStorage.setItem("googleUserDetails", JSON.stringify(googleUser));
     // window.location.href = "/dashboard";
   };
@@ -340,7 +341,7 @@ const Home = (props) => {
       <div id="signInBtn">
         <p>Step 1: Sign into Google</p>
         <GoogleLogin
-          clientId="950311351563-mfitsq5hdbl9hlscrtsou5rilbr730ou.apps.googleusercontent.com"
+          clientId="950311351563-ehj50jsqhnacs05u8m45lrlravs56982.apps.googleusercontent.com"
           buttonText="Sign In"
           onSuccess={responseGoogle}
           onFailure={() => {
