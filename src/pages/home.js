@@ -285,7 +285,7 @@ const Home = (props) => {
           steps,
         };
 
-        console.log(userData)
+        console.log(userData);
 
         // Write data to POD date wise
         await writeDataToPOD(webId, datesForPOD, userData);
@@ -343,6 +343,9 @@ const Home = (props) => {
           clientId="950311351563-mfitsq5hdbl9hlscrtsou5rilbr730ou.apps.googleusercontent.com"
           buttonText="Sign In"
           onSuccess={responseGoogle}
+          onFailure={() => {
+            console.log("Google error");
+          }}
           cookiePolicy={"single_host_origin"}
           theme="dark"
           scope="https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.blood_pressure.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/fitness.reproductive_health.read https://www.googleapis.com/auth/fitness.sleep.read"
