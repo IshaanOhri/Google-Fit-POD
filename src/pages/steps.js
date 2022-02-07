@@ -27,6 +27,7 @@ const Steps = (props) => {
         JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
           .expires_at
     ) {
+      localStorage.clear();
       sessionStorage.clear();
       window.location.href = "/";
     }
@@ -43,8 +44,7 @@ const Steps = (props) => {
       <Header></Header>
       <div id="graph">
         <ResponsiveContainer width="60%" aspect={2}>
-          <BarChart data={data} barSize={60}>
-          <CartesianGrid strokeDasharray="3" />
+          <BarChart data={data} barSize={40}>
             <XAxis
               dataKey="name"
               scale="point"

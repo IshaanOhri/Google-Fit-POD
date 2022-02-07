@@ -61,7 +61,7 @@ const getStepCount = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("steps", JSON.stringify(values));
+    // sessionStorage.setItem("steps", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -132,7 +132,7 @@ const getDistance = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("distance", JSON.stringify(values));
+    // sessionStorage.setItem("distance", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -203,7 +203,7 @@ const getActiveMinutes = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("activeMinutes", JSON.stringify(values));
+    // sessionStorage.setItem("activeMinutes", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -274,7 +274,7 @@ const getCaloriesExpended = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("caloriesExpended", JSON.stringify(values));
+    // sessionStorage.setItem("caloriesExpended", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -353,7 +353,7 @@ const getHeartRate = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("heartRate", JSON.stringify(values));
+    // sessionStorage.setItem("heartRate", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -421,7 +421,7 @@ const getSleepDuration = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("sleepDuration", JSON.stringify(values));
+    // sessionStorage.setItem("sleepDuration", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -500,7 +500,7 @@ const getSpeed = async (
     });
 
     // Save to session storage
-    sessionStorage.setItem("speed", JSON.stringify(values));
+    // sessionStorage.setItem("speed", JSON.stringify(values));
 
     return values;
   } catch (e) {
@@ -561,7 +561,7 @@ const getHeartPoints = async (
       }
     });
 
-    sessionStorage.setItem("heartPoints", JSON.stringify(values));
+    // sessionStorage.setItem("heartPoints", JSON.stringify(values));
 
     return values;
   } catch (e) {

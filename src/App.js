@@ -6,6 +6,10 @@ import Profile from "./pages/profile";
 import Steps from "./pages/steps";
 import Distance from "./pages/distance";
 import Speed from "./pages/speed";
+import CaloriesExpended from "./pages/caloriesExpended";
+import ActiveMinutes from "./pages/activeMinutes";
+import HeartRate from "./pages/heartRate";
+import HeartPoints from "./pages/heartPoints";
 
 export class App extends Component {
   render() {
@@ -19,9 +23,10 @@ export class App extends Component {
             <Route path="/steps" element={<Steps />} />
             <Route path='/distance' element={<Distance/>} />
         <Route path='/speed' element={<Speed/>} />
-        {/* <Route path='/active-minutes' element={<ActiveMinutes/>} /> */}
-        {/* <Route path='/calories-expended' element={<CaloriesExpended/>} /> */}
-        {/* <Route path='/heart-minutes' element={<HeartMinutes/>} /> */}
+        <Route path='/active-minutes' element={<ActiveMinutes/>} />
+        <Route path='/calories-expended' element={<CaloriesExpended/>} />
+        <Route path='/heart-rate' element={<HeartRate/>} />
+        <Route path='/heart-points' element={<HeartPoints/>} />
         {/* <Route path='/sleep-segment' element={<SleepSegment/>} /> */}
           </Routes>
         </BrowserRouter>

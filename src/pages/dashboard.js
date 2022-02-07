@@ -47,8 +47,10 @@ const Dashboard = (props) => {
       !sessionStorage.getItem("googleUserDetails") ||
       new Date().getTime() >
         JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
-          .expires_at || !sessionStorage.getItem("podStatus")
+          .expires_at ||
+      !sessionStorage.getItem("podStatus")
     ) {
+      localStorage.clear();
       sessionStorage.clear();
       window.location.href = "/";
     }
@@ -57,8 +59,6 @@ const Dashboard = (props) => {
     //   "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
     //   bearerToken
     // );
-
-    
   }, []);
 
   return loading ? (

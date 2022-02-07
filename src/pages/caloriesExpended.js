@@ -8,12 +8,11 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ResponsiveContainer,
-  CartesianGrid
+  ResponsiveContainer,CartesianGrid
 } from "recharts";
 import { createGraphDataFull } from "../utils/graphData";
 
-const Speed = (props) => {
+const CaloriesExpended = (props) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
 
@@ -33,7 +32,7 @@ const Speed = (props) => {
       window.location.href = "/";
     }
 
-    setData(createGraphDataFull("speed"));
+    setData(createGraphDataFull("caloriesExpended"));
 
     setLoading(false);
   }, []);
@@ -51,17 +50,18 @@ const Speed = (props) => {
               scale="point"
               style={{ fontSize: "0.8rem" }}
               tickMargin={10}
+
               interval={0}
               padding={{ left: 80, right: 80 }}
             />
             <YAxis style={{ fontSize: "0.8rem" }} />
             <Tooltip />
-            <Bar dataKey="data" name="Speed" fill="#32d29b" />
+            <Bar dataKey="data" name="Calories Expended" fill="#32d29b" />
           </BarChart>
         </ResponsiveContainer>
       </div>
       <div id="graphInfo">
-        <p id="title">SPEED (km/hr)</p>
+        <p id="title">CALORIES EXPENDED (cal)</p>
         <p id="dates">
           {data[0].name} - {data[6].name}
         </p>
@@ -70,4 +70,4 @@ const Speed = (props) => {
   );
 };
 
-export default Speed;
+export default CaloriesExpended;

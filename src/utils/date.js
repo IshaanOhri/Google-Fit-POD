@@ -18,6 +18,7 @@ const calculateDates = () => {
 
   // Empty array for dates
   var dates = [];
+  var datesForPOD = [];
 
   // Loop to add date of past 7 days into `dates` variable
   for (var i = 6; i >= 0; i--) {
@@ -29,7 +30,12 @@ const calculateDates = () => {
 
     // Add date to dates array
     dates.push(
-      `${splitDate[0]}, ${splitDate[1]} ${splitDate[2]} ${splitDate[3]} `
+      `${splitDate[0]}, ${splitDate[2]} ${splitDate[1]} ${splitDate[3]}`
+    );
+
+    // Add date to dates array for POD
+    datesForPOD.push(
+      `${splitDate[0]}-${splitDate[2]}-${splitDate[1]}-${splitDate[3]}`
     );
   }
 
@@ -37,7 +43,7 @@ const calculateDates = () => {
   sessionStorage.setItem("dates", JSON.stringify(dates));
 
   // return `startTime`, `endTime` and `dates`
-  return { startTime, endTime, dates };
+  return { startTime, endTime, dates, datesForPOD };
 };
 
 export { calculateDates };

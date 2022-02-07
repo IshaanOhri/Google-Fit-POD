@@ -16,7 +16,7 @@ body {
   transition: 0.3s;
   border-radius: 10px;
   color: var(--green);
-  font-size: 1.2em;
+  font-size: .8em;
   text-align: center;
   width: fit-content;
   position: absolute;

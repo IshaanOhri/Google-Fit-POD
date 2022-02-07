@@ -19,14 +19,13 @@ import {
   saveSolidDatasetAt,
   createSolidDataset,
   getInteger,
+  getDecimal,
 } from "@inrupt/solid-client";
 import {
   login,
-  logout,
   handleIncomingRedirect,
   fetch,
   getDefaultSession,
-  onSessionRestore,
   onLogin,
 } from "@inrupt/solid-client-authn-browser";
 import Loader from "../components/loader";
@@ -41,6 +40,7 @@ import {
   getSpeed,
   getStepCount,
 } from "../utils/googleapis";
+import { useParams } from "react-router-dom";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
@@ -49,84 +49,277 @@ const Home = (props) => {
     message: "Please wait while we configure your dashboard",
   };
 
-  async function readStepsFromPOD() {
-    const webId = sessionStorage.getItem("webId");
-    // console.log(webId);
+  async function writeDataToPOD(webId, dates, userData) {
+    const {
+      steps,
+      distance,
+      activeMinutes,
+      calories,
+      heartRate,
+      heartPoints,
+      sleepDuration,
+      speed,
+    } = userData;
 
-    const myDataset = await getSolidDataset(
-      `${webId}/daily-steps/Mon-Jan-24-2022`,
-      { fetch: getDefaultSession().fetch }
-    );
+    for (var i = 0; i < 7; i++) {
+      var solidDataset = createSolidDataset();
+      const stepsThing = buildThing(createThing({ name: "steps" }))
+        .addInteger("https://schema.org/Integer", steps[i])
+        .build();
 
-    const profile = getThing(
-      myDataset,
-      `${webId}/daily-steps/Mon-Jan-24-2022#steps`
-    );
+      const distanceThing = buildThing(createThing({ name: "distance" }))
+        .addDecimal("https://schema.org/Float", distance[i])
+        .build();
 
-    console.log(getInteger(profile, "https://schema.org/Integer"));
-    // console.log(getInteger(profile, "https://schema.org/Integer"));
+      const activeMinutesThing = buildThing(
+        createThing({ name: "activeMinutes" })
+      )
+        .addInteger("https://schema.org/Integer", activeMinutes[i])
+        .build();
+
+      const caloriesThing = buildThing(createThing({ name: "calories" }))
+        .addInteger("https://schema.org/Integer", calories[i])
+        .build();
+
+      const heartRateThing = buildThing(createThing({ name: "heartRate" }))
+        .addInteger("https://schema.org/Integer", heartRate[i])
+        .build();
+
+      const heartPointsThing = buildThing(createThing({ name: "heartPoints" }))
+        .addInteger("https://schema.org/Integer", heartPoints[i])
+        .build();
+
+      const sleepDurationThing = buildThing(
+        createThing({ name: "sleepDuration" })
+      )
+        .addInteger("https://schema.org/Integer", 0)
+        .build();
+
+      const speedThing = buildThing(createThing({ name: "speed" }))
+        .addDecimal("https://schema.org/Float", speed[i])
+        .build();
+
+      solidDataset = setThing(solidDataset, stepsThing);
+      solidDataset = setThing(solidDataset, distanceThing);
+      solidDataset = setThing(solidDataset, activeMinutesThing);
+      solidDataset = setThing(solidDataset, caloriesThing);
+      solidDataset = setThing(solidDataset, heartRateThing);
+      solidDataset = setThing(solidDataset, heartPointsThing);
+      solidDataset = setThing(solidDataset, sleepDurationThing);
+      solidDataset = setThing(solidDataset, speedThing);
+
+      try {
+        await saveSolidDatasetAt(
+          `${webId}/google-fit-pod/${dates[i]}`,
+          solidDataset,
+          { fetch: fetch }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
+  async function readDataFromPOD(webId, dates) {
+    const steps = [],
+      distance = [],
+      activeMinutes = [],
+      calories = [],
+      heartRate = [],
+      heartPoints = [],
+      sleepDuration = [],
+      speed = [];
+
+    for (var i = 0; i < 7; i++) {
+      const solidDataset = await getSolidDataset(
+        `${webId}/google-fit-pod/${dates[i]}`,
+        { fetch: getDefaultSession().fetch }
+      );
+
+      const stepsThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#steps`
+      );
+
+      const distanceThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#distance`
+      );
+
+      const activeMinutesThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#activeMinutes`
+      );
+
+      const caloriesThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#calories`
+      );
+
+      const heartRateThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#heartRate`
+      );
+
+      const heartPointsThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#heartPoints`
+      );
+
+      const sleepDurationThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#sleepDuration`
+      );
+
+      const speedThing = getThing(
+        solidDataset,
+        `${webId}/google-fit-pod/${dates[i]}#speed`
+      );
+
+      steps.push(getInteger(stepsThing, "https://schema.org/Integer"));
+      distance.push(getDecimal(distanceThing, "https://schema.org/Float"));
+      activeMinutes.push(
+        getInteger(activeMinutesThing, "https://schema.org/Integer")
+      );
+      calories.push(getInteger(caloriesThing, "https://schema.org/Integer"));
+      heartRate.push(getInteger(heartRateThing, "https://schema.org/Integer"));
+      heartPoints.push(
+        getInteger(heartPointsThing, "https://schema.org/Integer")
+      );
+      sleepDuration.push(
+        getInteger(sleepDurationThing, "https://schema.org/Integer")
+      );
+      speed.push(getDecimal(speedThing, "https://schema.org/Float"));
+    }
+
+    // Add everything to sessions storage
+    sessionStorage.setItem("steps", JSON.stringify(steps));
+    sessionStorage.setItem("distance", JSON.stringify(distance));
+    sessionStorage.setItem("activeMinutes", JSON.stringify(activeMinutes));
+    sessionStorage.setItem("caloriesExpended", JSON.stringify(calories));
+    sessionStorage.setItem("heartRate", JSON.stringify(heartRate));
+    sessionStorage.setItem("heartPoints", JSON.stringify(heartPoints));
+    sessionStorage.setItem("sleepDuration", JSON.stringify(sleepDuration));
+    sessionStorage.setItem("speed", JSON.stringify(speed));
   }
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    let code = params.has("code");
+    let state = params.has("state");
+
     if (
       sessionStorage.getItem("googleUserDetails") &&
-      sessionStorage.getItem("podStatus")
+      sessionStorage.getItem("podStatus") &&
+      code &&
+      state
     ) {
+      // Start loader
       setLoading(true);
-      // TO-DO
-      // Fetch Data and forward to /dashboard
-      console.log("Both login");
 
-      const { startTime, endTime, dates } = calculateDates();
+      const { startTime, endTime, dates, datesForPOD } = calculateDates();
 
+      // Get bearerToken from session storage
       const bearerToken = JSON.parse(
         sessionStorage.getItem("googleUserDetails")
       ).accessToken;
 
-      console.log(bearerToken)
+      // Get webId from session storage
+      const webId = sessionStorage.getItem("webId");
 
-      async function fetchData() {
-        await getStepCount(bearerToken, startTime, endTime, 86400000);
-        await getDistance(bearerToken, startTime, endTime, 86400000);
-        await getActiveMinutes(bearerToken, startTime, endTime, 86400000);
-        await getCaloriesExpended(bearerToken, startTime, endTime, 86400000);
-        await getHeartRate(bearerToken, startTime, endTime, 86400000);
-        await getHeartPoints(bearerToken, startTime, endTime, 86400000);
-        await getSleepDuration(bearerToken, startTime, endTime, 86400000);
-        await getSpeed(bearerToken, startTime, endTime, 86400000);
+      // Function to get data from google API, write to POD, read from POD and store in session storage
+      async function fetchAndSaveData() {
+        const steps = await getStepCount(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const distance = await getDistance(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const activeMinutes = await getActiveMinutes(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const calories = await getCaloriesExpended(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const heartRate = await getHeartRate(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const heartPoints = await getHeartPoints(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const sleepDuration = await getSleepDuration(
+          bearerToken,
+          startTime,
+          endTime,
+          86400000
+        );
+        const speed = await getSpeed(bearerToken, startTime, endTime, 86400000);
+
+        // Create object for user data with data received from google API
+        const userData = {
+          speed,
+          distance,
+          activeMinutes,
+          calories,
+          heartPoints,
+          heartRate,
+          sleepDuration,
+          steps,
+        };
+
+        console.log(userData)
+
+        // Write data to POD date wise
+        await writeDataToPOD(webId, datesForPOD, userData);
+
+        // Read data from POD date wise
+        await readDataFromPOD(webId, datesForPOD);
 
         window.location.href = "/dashboard";
+        // End loader
         setLoading(false);
       }
 
-      fetchData();
+      fetchAndSaveData();
     }
-
-    const func = async () => {
-      const session = await handleIncomingRedirect({
-        url: window.location.href,
-        restorePreviousSession: true,
-      });
-
-      if (session.isLoggedIn) {
-        const profileDocumentUrl = new URL(session.webId);
-        const webId = profileDocumentUrl.origin;
-
-        console.log(webId);
-        sessionStorage.setItem("webId", webId);
-        sessionStorage.setItem("podStatus", true);
-        window.location.href = "/";
-      }
-    };
-
-    func();
-  },[]);
+  }, []);
 
   const responseGoogle = (googleUser) => {
     sessionStorage.setItem("googleUserDetails", JSON.stringify(googleUser));
-    console.log("Google Sign In Successful");
     // window.location.href = "/dashboard";
   };
+
+  handleIncomingRedirect({
+    url: window.location.href,
+    restorePreviousSession: true,
+  });
+
+  onLogin(() => {
+    const profileDocumentUrl = new URL(getDefaultSession().info.webId);
+    const webId = profileDocumentUrl.origin;
+
+    sessionStorage.setItem("webId", webId);
+    sessionStorage.setItem("podStatus", true);
+    window.location.href = "/";
+  });
 
   // Function definition for signing into POD
   const signInPOD = (e) => {
@@ -145,6 +338,7 @@ const Home = (props) => {
     <>
       <LoginHeader></LoginHeader>
       <div id="signInBtn">
+        <p>Step 1: Sign into Google</p>
         <GoogleLogin
           clientId="950311351563-mfitsq5hdbl9hlscrtsou5rilbr730ou.apps.googleusercontent.com"
           buttonText="Sign In"
@@ -153,7 +347,7 @@ const Home = (props) => {
           theme="dark"
           scope="https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.blood_pressure.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/fitness.reproductive_health.read https://www.googleapis.com/auth/fitness.sleep.read"
         />
-
+        <p>Step 2: Sign into POD</p>
         <p
           id="solidSignInBtn"
           onClick={(e) => {

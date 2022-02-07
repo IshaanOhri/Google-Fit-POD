@@ -26,6 +26,7 @@ const Profile = (props) => {
         JSON.parse(sessionStorage.getItem("googleUserDetails")).tokenObj
           .expires_at
     ) {
+      localStorage.clear();
       sessionStorage.clear();
       window.location.href = "/";
     }

@@ -6,6 +6,7 @@ import { logout } from "@inrupt/solid-client-authn-browser";
 const signOut = async () => {
   await logout();
   sessionStorage.clear();
+  localStorage.clear();
   window.location.href = "/";
 };
 
@@ -62,7 +63,7 @@ const LoginHeader = (pops) => {
     // Header main div
     <div className="loginHeader">
       {/* Home div */}
-      <div id="home" className="tracking-in-expand">
+      <div id="home">
         <p>HealthKeeper</p>
         <img id="logo" src={require("../assets/logo.png")} alt="Logo"></img>
       </div>
