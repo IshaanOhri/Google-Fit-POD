@@ -21,13 +21,13 @@ export class App extends Component {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/steps" element={<Steps />} />
-            <Route path='/distance' element={<Distance/>} />
-        <Route path='/speed' element={<Speed/>} />
-        <Route path='/active-minutes' element={<ActiveMinutes/>} />
-        <Route path='/calories-expended' element={<CaloriesExpended/>} />
-        <Route path='/heart-rate' element={<HeartRate/>} />
-        <Route path='/heart-points' element={<HeartPoints/>} />
-        {/* <Route path='/sleep-segment' element={<SleepSegment/>} /> */}
+            <Route path="/distance" element={<Distance />} />
+            <Route path="/speed" element={<Speed />} />
+            <Route path="/active-minutes" element={<ActiveMinutes />} />
+            <Route path="/calories-expended" element={<CaloriesExpended />} />
+            <Route path="/heart-rate" element={<HeartRate />} />
+            <Route path="/heart-points" element={<HeartPoints />} />
+            {/* <Route path='/sleep-segment' element={<SleepSegment/>} /> */}
           </Routes>
         </BrowserRouter>
       </div>

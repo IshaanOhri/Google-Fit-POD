@@ -9,7 +9,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  CartesianGrid
 } from "recharts";
 import { createGraphDataFull } from "../utils/graphData";
 
@@ -51,7 +50,6 @@ const Distance = (props) => {
               scale="point"
               style={{ fontSize: "0.8rem" }}
               tickMargin={10}
-
               interval={0}
               padding={{ left: 80, right: 80 }}
             />

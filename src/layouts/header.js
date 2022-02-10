@@ -2,7 +2,7 @@ import React from "react";
 import "../assets/styles/header.css";
 import { logout } from "@inrupt/solid-client-authn-browser";
 
-// Logout of POD, clear session storage and redirect to home after logout
+// Logout of POD, clear session and local storage and redirect to home after logout
 const signOut = async () => {
   await logout();
   sessionStorage.clear();

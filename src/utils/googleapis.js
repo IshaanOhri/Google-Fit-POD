@@ -508,6 +508,7 @@ const getSpeed = async (
   }
 };
 
+// Function to save and return heart points for past 7 days from Google API
 const getHeartPoints = async (
   token,
   startTimeMillis,

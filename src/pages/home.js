@@ -3,13 +3,12 @@
  * @Date: 2022-01-28 10:37:37
  * @Last Modified by: Ishaan Ohri
  * @Last Modified time: 2022-01-31 23:37:48
- * @Description: First page of the project. Contains a Google Sign In button. After successful sign in user is redirected to /dashboard
+ * @Description: First page of the project. Contains a Google Sign In button. Google Sign In button will first complete the Google Authentication and then the Inrupt Authentication. After the authentications, it will call the Google APIs, write data to POD, read it back from the POD and store it in the session storage, after which user is redirected to /dashboard
  */
 import React, { useEffect, useState } from "react";
 import GoogleLogin from "react-google-login";
 import "../assets/styles/home.css";
 import { LoginHeader } from "../layouts/header";
-
 import {
   getSolidDataset,
   getThing,
@@ -40,7 +39,6 @@ import {
   getSpeed,
   getStepCount,
 } from "../utils/googleapis";
-import { useParams } from "react-router-dom";
 
 const Home = (props) => {
   const [loading, setLoading] = useState(false);
@@ -49,6 +47,7 @@ const Home = (props) => {
     message: "Please wait while we configure your dashboard",
   };
 
+  // Function to use data received from Google API and write into POD
   async function writeDataToPOD(webId, dates, userData) {
     const {
       steps,
@@ -120,6 +119,7 @@ const Home = (props) => {
     }
   }
 
+  // Function to read data from POD and store to session storage
   async function readDataFromPOD(webId, dates) {
     const steps = [],
       distance = [],
@@ -302,17 +302,25 @@ const Home = (props) => {
     }
   }, []);
 
+  // Function which is called after successful Google Login
+  // Initiates the Inrupt Login after completion of Google Login
   const responseGoogle = (googleUser) => {
-    console.log(googleUser)
+    console.log(googleUser);
     sessionStorage.setItem("googleUserDetails", JSON.stringify(googleUser));
+    signInPOD();
     // window.location.href = "/dashboard";
   };
 
+  // Function to handle incoming redirects
+  // Catches the data sent from the Inrupt client and stores it in local storage
   handleIncomingRedirect({
     url: window.location.href,
     restorePreviousSession: true,
   });
 
+  // Function which is called after the login process of inrupt is completed
+  // Stores `webId` into session storage
+  // Sets `podStatus` to `true` in the session storage
   onLogin(() => {
     const profileDocumentUrl = new URL(getDefaultSession().info.webId);
     const webId = profileDocumentUrl.origin;
@@ -323,9 +331,8 @@ const Home = (props) => {
   });
 
   // Function definition for signing into POD
-  const signInPOD = (e) => {
-    e.preventDefault();
-
+  // Initiates the Inrupt login process with the POD provider
+  const signInPOD = () => {
     login({
       redirectUrl: window.location.href,
       oidcIssuer: "https://inrupt.net",
@@ -339,8 +346,8 @@ const Home = (props) => {
     <>
       <LoginHeader></LoginHeader>
       <div id="signInBtn">
-        <p>Step 1: Sign into Google</p>
         <GoogleLogin
+          className="check"
           clientId="950311351563-ehj50jsqhnacs05u8m45lrlravs56982.apps.googleusercontent.com"
           buttonText="Sign In"
           onSuccess={responseGoogle}
@@ -351,16 +358,6 @@ const Home = (props) => {
           theme="dark"
           scope="https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.blood_pressure.read https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/fitness.reproductive_health.read https://www.googleapis.com/auth/fitness.sleep.read"
         />
-        <p>Step 2: Sign into POD</p>
-        <p
-          id="solidSignInBtn"
-          onClick={(e) => {
-            signInPOD(e);
-            // console.log('hi')
-          }}
-        >
-          Sign In POD
-        </p>
       </div>
     </>
   );

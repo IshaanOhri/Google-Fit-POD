@@ -1,35 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/styles/dashboard.css";
-import { GoogleLogout } from "react-google-login";
-
-import {
-  getSolidDataset,
-  getThing,
-  setThing,
-  buildThing,
-  createThing,
-  saveSolidDatasetAt,
-  createSolidDataset,
-  getInteger,
-} from "@inrupt/solid-client";
-
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
-import {
-  login,
-  logout,
-  handleIncomingRedirect,
-  fetch,
-  getDefaultSession,
-} from "@inrupt/solid-client-authn-browser";
-import { render } from "@testing-library/react";
+import { BarChart, Bar, XAxis } from "recharts";
 import Loader from "../components/loader";
 import { Header } from "../layouts/header";
 
@@ -54,11 +25,6 @@ const Dashboard = (props) => {
       sessionStorage.clear();
       window.location.href = "/";
     }
-
-    // console.log(
-    //   "🚀 ~ file: dashboard.js ~ line 71 ~ useEffect ~ bearerToken",
-    //   bearerToken
-    // );
   }, []);
 
   return loading ? (
